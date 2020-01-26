@@ -62,8 +62,20 @@
     <script>
          let n1 = new Negociacao(new Date(), 4, 800);
          let n2 = new Negociacao(new Date(), 14, 28000);
-         console.log(n1.obtemVolume())
-         console.log(n2.obtemVolume())
+
+         //se vc tentar acessar o getter pra mudar a propriedade, nao vai dar certo
+         //n1.quantidade = 2143;
+         console.log(n1.volume)
+         console.log(n2.volume)
+
+         console.log(n1.data);
+         console.log(n2.data);
+
+         console.log(n1.quantidade);
+         console.log(n2.quantidade);
+
+         console.log(n1.valor);
+         console.log(n2.valor);
     </script>
 </body>
 </html>

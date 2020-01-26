@@ -1,11 +1,26 @@
 class Negociacao {
     constructor(data, quantidade, valor) {
         //o this sempre aponta pra instancia que ta executando aquele momento
-        this.data = data;
-        this.quantidade = quantidade;
-        this.valor = valor;
+        //no js atual nao temos modificadores de acesso, logo quando queremos dizer
+        //que uma propriedade só pode ser mudada a partir da propria classe (metodos) nos usamos o _ na frente do nome da propriedade
+        //Perceba que isso é uma CONVENCAO, o programador ao ver isso deve entender q ele NAO DEVE ACESSAR A PROPRIEDADE DIRETAMENTE
+
+        this._data = data;
+        this._quantidade = quantidade;
+        this._valor = valor;
     }
-    obtemVolume() {
-        return this.quantidade * this.valor;
+    get volume() {
+        return this._quantidade * this._valor;
+    }
+    get data() {
+        return this._data;
+    }
+
+    get quantidade() {
+        return this._quantidade;
+    }
+
+    get valor() {
+        return this._valor;
     }
 }
