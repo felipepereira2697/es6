@@ -8,6 +8,9 @@ class Negociacao {
         this._data = data;
         this._quantidade = quantidade;
         this._valor = valor;
+        //Quando eu uso o freeze estou congelando o objeto e assim nao é possivel alterar nenhuma propriedade desse cara
+        //nesse caso funciona pois nem os metodos da nossa classe alteram as propriedades da mesma.
+        Object.freeze(this);
     }
     get volume() {
         return this._quantidade * this._valor;
