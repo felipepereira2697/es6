@@ -60,10 +60,10 @@
     </table>
     <script src="js/app/models/Negociacao.js"></script>
     <script>
-         let n1 = new Negociacao();
-         let n2 = new Negociacao();
-         console.log(n1)
-         console.log(n2)
+         let n1 = new Negociacao(new Date(), 4, 800);
+         let n2 = new Negociacao(new Date(), 14, 28000);
+         console.log(n1.obtemVolume())
+         console.log(n2.obtemVolume())
     </script>
 </body>
 </html>

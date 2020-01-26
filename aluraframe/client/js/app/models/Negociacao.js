@@ -1,9 +1,11 @@
 class Negociacao {
-    constructor() {
+    constructor(data, quantidade, valor) {
         //o this sempre aponta pra instancia que ta executando aquele momento
-        this.data = new Date();
-        this.quantidade = 1;
-        this.valor = 0;
-        
+        this.data = data;
+        this.quantidade = quantidade;
+        this.valor = valor;
+    }
+    obtemVolume() {
+        return this.quantidade * this.valor;
     }
 }
