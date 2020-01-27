@@ -21,18 +21,21 @@ class NegociacaoController {
         event.preventDefault();
         //Podemos usar o spread operator, assim quando passamos um array pra dentro de um metodo ele entende
         //que a primeira posicao do array é o primeiro parametro da funcao e assim por diante
+
+        /*
+            Podemos usar arrow function no caso do map e quando temos somente UMA instrucao
+            podemos emitir as chaves do bloco bem como a palavra return
+        */
         let data = new Date(...this._inputDate.value
                             .split('-')
-                            .map(function(item, indice){
-                                return  indice == 1 ? item - 1: item;
-                            })
+                            .map((item, indice) => indice == 1 ? item - 1: item)
         );
         console.log(data);
-        // let negociacao = new Negociacao(
-        //     this._inputDate.value,
-        //     this._inputQuantidade.value,
-        //     this._inputValor.value
-        // )
-        //console.log('--->'+this.inputDate.value+' '+this.inputQuantidade.value+' '+this.inputValor.value);
+        let negociacao = new Negociacao(
+            data,
+            this._inputQuantidade.value,
+            this._inputValor.value
+        )
+        console.log('Negociacao criada: ',negociacao);
     }
 }
