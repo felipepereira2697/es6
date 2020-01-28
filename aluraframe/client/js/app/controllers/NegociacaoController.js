@@ -17,26 +17,17 @@ class NegociacaoController {
        this._inputValor = $("#valor");
     }
     adiciona(event) {
-        console.log(typeof this._inputDate.value);
         event.preventDefault();
-        //Podemos usar o spread operator, assim quando passamos um array pra dentro de um metodo ele entende
-        //que a primeira posicao do array é o primeiro parametro da funcao e assim por diante
-
-        /*
-            Podemos usar arrow function no caso do map e quando temos somente UMA instrucao
-            podemos emitir as chaves do bloco bem como a palavra return
-        */
-        let data = new Date(...this._inputDate.value
-                            .split('-')
-                            .map((item, indice) => indice == 1 ? item - 1: item)
-        );
-        console.log(data);
+       
+        let helper = new DateHelper();
+        let data = helper.textoParaData(this._inputDate.value);
         let negociacao = new Negociacao(
             data,
             this._inputQuantidade.value,
             this._inputValor.value
         )
-        let diaMesAno = negociacao.data.getDate() + '/'+(negociacao.data.getMonth()+1) + '/'+negociacao.data.getFullYear();
-        console.log(diaMesAno);
+        console.log(negociacao);
+        console.log(helper.dataParaTexto(negociacao.data));
+        
     }
 }
