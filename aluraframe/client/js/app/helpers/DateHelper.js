@@ -1,5 +1,11 @@
 class DateHelper {
-    textoParaData(texto) {
+    //Como a classe nao pode ser instanciada pq nao faz sentido, no construtor vamos lancar uma exception
+    constructor() {
+        throw new Error('DateHelper não pode ser instanciada');
+    }   
+    //Como aqui nao temos propriedade nao instanciamos nada, nao usamos constructor customizado, esses metodos de helper
+    //fazem sentido ser static
+    static textoParaData(texto) {
          //Podemos usar o spread operator, assim quando passamos um array pra dentro de um metodo ele entende
         //que a primeira posicao do array é o primeiro parametro da funcao e assim por diante
 
@@ -10,7 +16,7 @@ class DateHelper {
         return new Date(...texto.split('-')
                     .map((item, indice) => indice == 1 ? item - 1: item));
     }
-    dataParaTexto(data) {
+    static dataParaTexto(data) {
         return data.getDate() + '/'+(data.getMonth()+1) + '/'+data.getFullYear();
     }
 }
