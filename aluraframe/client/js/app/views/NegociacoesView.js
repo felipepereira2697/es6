@@ -29,15 +29,9 @@ class NegociacoesView {
             
             <tfoot>
                 <td colspan="3"></td>
-                <td>${
-                    (function() {
-                        let total = 0;
-                        model.negociacoes.forEach(element => {
-                            total += element.volume;
-                        });
-                        return total;
-                    })() //FUNCAO AUTO INVOCAVEL EXTREMAMENTE UTIL -- IIFE
-                }</td>
+                <td>
+                    ${model.negociacoes.reduce((total, n) =>  total + n.volume,0.0)}
+                </td>
             </tfoot>
         </table>
         `;
