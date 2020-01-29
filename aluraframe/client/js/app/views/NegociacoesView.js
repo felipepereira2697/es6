@@ -28,6 +28,16 @@ class NegociacoesView {
             </tbody>
             
             <tfoot>
+                <td colspan="3"></td>
+                <td>${
+                    (function() {
+                        let total = 0;
+                        model.negociacoes.forEach(element => {
+                            total += element.volume;
+                        });
+                        return total;
+                    })() //FUNCAO AUTO INVOCAVEL EXTREMAMENTE UTIL -- IIFE
+                }</td>
             </tfoot>
         </table>
         `;
