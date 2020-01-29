@@ -12,7 +12,7 @@ class Negociacao {
         //nesse caso funciona pois nem os metodos da nossa classe alteram as propriedades da mesma.
         //Object freeze é shallow oq significa q ele congela somente as propriedades desse objeto, no caso de objetos dentro de objetos
         //esses objetos internos, nao tem suas propriedades congeladas, e isso portanto nao garante a imutabilidade total
-        Object.freeze(this);
+        //Object.freeze(this);
     }
     get volume() {
         return this._quantidade * this._valor;
