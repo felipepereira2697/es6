@@ -3,7 +3,7 @@ class NegociacoesView extends View{
         //passando pro constructor pai
         super(elemento);
     }
-    _template(model) {
+    template(model) {
         return `
         <table class="table table-hover table-bordered">
             <thead>
