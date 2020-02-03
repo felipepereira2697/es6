@@ -15,10 +15,10 @@ class NegociacaoController {
        this._inputDate = $("#data"); 
        this._inputQuantidade = $("#quantidade");
        this._inputValor = $("#valor");
-       this._listaNegociacoes = new ListaNegociacoes(this,function(model){
-           this._negociacoesView.update(model);
-
-       });
+       //O escopo do this de uma arrow function é lexico ele nao é dinamico igual o escopo de uma function
+       //ele nao muda de acordo com contexto o this na arrow function abaixo é NegociacaoController e nao ListaNegociacoes
+       //como seria o caso da function
+       this._listaNegociacoes = new ListaNegociacoes(model => this._negociacoesView.update(model) );
        this._negociacoesView = new NegociacoesView($("#negociacoesView"));
        //para fazer a primeira renderizacao 
        this._negociacoesView.update(this._listaNegociacoes);
