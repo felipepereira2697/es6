@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>TITULO</h1>
+    <p>PARAGRAFO</p>
+    <div>DADOS</div>
+    <p>
+        Arrow functions ajudam bastante quando aplicamos o paradigma orientado a objetos, pois o this passa a se comportar como o esperado, especialmente em outras linguagens de programação, como Java e C#.
+    </p>
+    <script>
+        console.log(this); // é window
+
+        //O this nessa funcao é dinamico ou seja quando clicamos nele dependendo do elemento ele vai mostrar
+        //um this diferente, para contornar isso podemos usar a Api de Reflect e definir o this que queremos
+        // let exibeConteudo = (function()) {
+        //     console.log(this);
+        //     alert(this.textContent);
+        // };
+        
+        //Aqui estamos usando a arrow function q possui escopo lexico, nesse caso o this sera sempre window
+        //e nao possuira a propriedade textContent
+        let exibeConteudo = () => {
+            console.log(this);
+            alert(this.textContent);
+        };
+        $ = document.querySelector.bind(document);
+
+        $('h1').addEventListener('click', exibeConteudo);
+
+        $('p').addEventListener('click', exibeConteudo);
+
+        $('div').addEventListener('click', exibeConteudo);
+
+    </script>
+</body>
+</html>
