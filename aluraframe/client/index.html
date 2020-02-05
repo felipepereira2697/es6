@@ -60,8 +60,21 @@
 
     <script>
         let negociacaoProxy = new Proxy(new Negociacao(new Date(), 1,100), {
-            
+           //Interceptar uma operacao de leitura para executar determinada acao
+           get : function(target, prop, receiver) {
+               //vai ser chamado toda vez que vc tentar ler a propriedade do objeto
+               //target -> Objeto original que esta sendo encapsulado pelo Proxy
+               //prop -> Propriedade que esta sendo acessada
+               //receiver -> Referencia para o proprio proxy
+               console.log(`${prop} interceptada!`);
+               //Na trap/armadilha precisamos reetornar o valor do que aconteceu depois de termos interceptado
+               //para isso vamos usar a api de Reflect com o metodo get que funciona como se estivessemos justamente
+               //fazendo o get no objeto
+               return Reflect.get(target, prop, receiver);
+           }
         });
+        console.log(negociacaoProxy.quantidade);
+        console.log(negociacaoProxy.valor);
     </script>
 </body>
 </html>
