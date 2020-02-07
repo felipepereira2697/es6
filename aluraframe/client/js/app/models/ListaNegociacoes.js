@@ -5,8 +5,8 @@ class ListaNegociacoes {
         
     }
     adiciona(negociacao) {
+        
         this._negociacoes.push(negociacao);
-        //vai receber como parametro a propria instancia q esta sendo chamada
         
     }
 
