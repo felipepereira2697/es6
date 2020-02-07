@@ -1,0 +1,23 @@
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p class="info">Treinando proxy...</p>
+    <script>
+        let funcionario = {name : 'Felipe Pereira'};
+        let funcionarioProxy = new Proxy(funcionario,  {
+            get(target, prop, receiver) {
+                console.log('Armadilha aqui');
+                return Reflect.get(target, prop, receiver);
+            }
+        });
+        console.log(funcionarioProxy.name);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+Javascript parte II
+
+
+Sobre o padrao Proxy
+1) Ele é útil quando queremos deixar os nossos modelos mais limpos, sem várias armadilhas penduradas nos seus métodos. 
+Por exemplo, evitando pendurar um código de infraestrutura em nossos modelos.
+
+2) Ele serve como um placeholder de um objeto real, servindo como uma interface para o objeto que queremos interagir, 
+nos permitindo controlar o acesso às suas propriedades e métodos.
+
+let pessoa = {
+    nome: 'Flávio'    
+}
+
+let pessoaProxy = new Proxy(pessoa, {
+    get(target, prop, receiver) {
+         O target é o objeto real, que é encapsulado pelo proxy.
+
+        O prop é a propriedade que está sendo lida.
+
+        O receiver é uma referência ao próprio proxy.
+    }
+});
+
+o segundo parametro da instancia de Proxy é um handler q é um objeto JS para que possamos executar algo nele
+nesse parametro podemos interceptar metodos e com base nisso podemos reescrever o metodo
