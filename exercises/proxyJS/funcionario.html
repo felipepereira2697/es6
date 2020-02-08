@@ -1,0 +1,40 @@
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p class="info">Treinando proxy com a classe Funcionario...</p>
+    <script>
+        class Funcionario {
+            constructor(email) {
+                this._email = email;
+            }
+
+            get email() {
+                return this._email;
+            }
+
+            set email(email) {
+                this._email = email;
+            }
+        }
+        let func = new Funcionario('felipepereira');
+        let funcionarioProxy = new Proxy(func, {
+            get(target, prop, receiver) {
+                console.log('Armadilha aqui');
+                console.log(prop);
+                return Reflect.get(target, prop, receiver);
+            }
+        })
+        //Vai aparecer duas vezes a mensagem Armadilha aqui uma para o getter do email e a outra para a prop
+        // que vai ser acessada pelo getter
+        
+        console.log(funcionarioProxy.email);
+
+    </script>
+</body>
+</html>
