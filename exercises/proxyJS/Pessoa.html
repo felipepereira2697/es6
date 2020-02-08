@@ -1,0 +1,50 @@
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<p class="info">Treinando proxy com a classe Pessoa...</p>
+	<script>
+	   class Pessoa {
+
+		constructor(nome) {
+			this._nome = nome;
+		}
+
+		get nome() {
+			return this._nome;
+		}
+
+		set nome(nome) {
+			this._nome = nome;
+		}
+
+		grita(frase) {
+			return `${this._nome} grita ${frase}`;
+		}
+		}
+
+		let pessoa = new Proxy(new Pessoa('Barney'), {
+
+			get(target, prop, receiver) {
+				if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+					console.log('2 ' +this);
+					return function() {
+						console.log('3 '+this);
+						console.log(`Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`);    
+						return Reflect.apply(target[prop], target, arguments);       
+					}
+				}
+				return Reflect.get(target, prop, receiver);
+			}
+		});
+		console.log('4 '+this);
+	console.log(pessoa.grita('Olá'));
+
+	</script>
+</body>
+</html>

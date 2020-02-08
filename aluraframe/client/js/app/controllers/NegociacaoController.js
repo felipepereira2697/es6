@@ -17,30 +17,10 @@ class NegociacaoController {
        this._inputValor = $("#valor");
 
        let self = this;
-       this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-        //Interceptar uma operacao de leitura para executar determinada acao
-        get(target, prop, receiver) {
-            //Se o metodo que to interceptando é adiciona ou esvazia
-            if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-                 //Substituindo o metodo do Proxy por uma function
-                 return function() {
-                     //ou seja se vc tiver chamando o metodo adiciona do Proxy na verdade vc ta chamando esse metodo aqui
-                     console.log(`interceptando ${prop}`);
-                     //usando o self pra usar o this corretamente
-                     //entao precisamos passar os parametros que o nosso metodo real precisaria no caso uma negociacao
-                     //vamos fazer usando o objeto implicito arguments junto com a api de Reflect
-                     //o arguments da acesso a todos os parametros da funcao quando ela é chamada.
-                     console.log('--> ',this);
-                     
-                     Reflect.apply(target[prop], target,arguments);
-                     //Chamo a atualizacao da view só depois de aplicar o valor correto
-                     self._negociacoesView.update(target);
-                     console.log(arguments);
-                 }
-            }
-            return Reflect.get(target,prop,receiver);
-            }
-        });
+       this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => {
+           //como a arrow function tem escopo lexico, ela vai entender que esse this é o NegociacaoController
+           this._negociacoesView.update(model);
+       })
 
        //O escopo do this de uma arrow function é lexico ele nao é dinamico igual o escopo de uma function
        //ele nao muda de acordo com contexto o this na arrow function abaixo é NegociacaoController e nao ListaNegociacoes
@@ -49,7 +29,9 @@ class NegociacaoController {
        this._negociacoesView = new NegociacoesView($("#negociacoesView"));
        //para fazer a primeira renderizacao 
        this._negociacoesView.update(this._listaNegociacoes);
-       this._mensagem = new Mensagem();
+       this._mensagem = ProxyFactory.create(new Mensagem(),['texto'], (model) => {
+           this._mensagemView.update(model);
+       });
        this._mensagemView = new MensagemView($("#mensagemView"));
        this._mensagemView.update(this._mensagem);
 
@@ -60,7 +42,7 @@ class NegociacaoController {
         this._listaNegociacoes.adiciona(this._criaNegociacao());
 
         this._mensagem.texto = "Negociação adicionada com sucesso";
-        this._mensagemView.update(this._mensagem);
+        //this._mensagemView.update(this._mensagem);
         this._limpaFormulario();
         
     }
@@ -68,7 +50,7 @@ class NegociacaoController {
         this._listaNegociacoes.esvazia();
 
         this._mensagem.texto = 'Negociacoes apagadas com sucesso';
-        this._mensagemView.update(this._mensagem);
+        
 
     }
     /*Só a classe pode chamar esses metodos com _ */
