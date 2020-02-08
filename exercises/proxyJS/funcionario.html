@@ -28,13 +28,18 @@
                 console.log('Armadilha aqui');
                 console.log(prop);
                 return Reflect.get(target, prop, receiver);
+            }, 
+            set(target, prop, value, receiver) {
+                console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+                return Reflect.set(target, prop, value, receiver);
             }
         })
         //Vai aparecer duas vezes a mensagem Armadilha aqui uma para o getter do email e a outra para a prop
         // que vai ser acessada pelo getter
         
         console.log(funcionarioProxy.email);
-
+        funcionarioProxy.email = 'batatinha';
+        console.log(funcionarioProxy.email);
     </script>
 </body>
 </html>
