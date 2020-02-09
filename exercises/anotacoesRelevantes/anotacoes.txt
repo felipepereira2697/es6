@@ -24,3 +24,14 @@ let pessoaProxy = new Proxy(pessoa, {
 
 o segundo parametro da instancia de Proxy é um handler q é um objeto JS para que possamos executar algo nele
 nesse parametro podemos interceptar metodos e com base nisso podemos reescrever o metodo
+
+
+=======
+Sobre o padrao Factory
+Sobre o padrão de projeto Factory, julgue as afirmativas abaixo:
+
+1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
+
+2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
+
+3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
