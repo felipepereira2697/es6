@@ -18,7 +18,7 @@ class NegociacaoController {
 
        let self = this;
        this._negociacoesView = new NegociacoesView($("#negociacoesView"));
-       this._listaNegociacoes = new Bind(new ListaNegociacoes(),this._negociacoesView,['adiciona', 'esvazia']);
+       this._listaNegociacoes = new Bind(new ListaNegociacoes(),this._negociacoesView,'adiciona', 'esvazia');
        //O escopo do this de uma arrow function é lexico ele nao é dinamico igual o escopo de uma function
        //ele nao muda de acordo com contexto o this na arrow function abaixo é NegociacaoController e nao ListaNegociacoes
        //como seria o caso da function
@@ -26,7 +26,7 @@ class NegociacaoController {
        
        
        this._mensagemView = new MensagemView($("#mensagemView"));
-       this._mensagem = new Bind(new Mensagem(), this._mensagemView,['texto']);
+       this._mensagem = new Bind(new Mensagem(), this._mensagemView,'texto');
        
 
     }
