@@ -17,23 +17,17 @@ class NegociacaoController {
        this._inputValor = $("#valor");
 
        let self = this;
-       this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => {
-           //como a arrow function tem escopo lexico, ela vai entender que esse this é o NegociacaoController
-           this._negociacoesView.update(model);
-       })
-
+       this._negociacoesView = new NegociacoesView($("#negociacoesView"));
+       this._listaNegociacoes = new Bind(new ListaNegociacoes(),this._negociacoesView,['adiciona', 'esvazia']);
        //O escopo do this de uma arrow function é lexico ele nao é dinamico igual o escopo de uma function
        //ele nao muda de acordo com contexto o this na arrow function abaixo é NegociacaoController e nao ListaNegociacoes
        //como seria o caso da function
     //    this._listaNegociacoes = new ListaNegociacoes(model => this._negociacoesView.update(model) );
-       this._negociacoesView = new NegociacoesView($("#negociacoesView"));
-       //para fazer a primeira renderizacao 
-       this._negociacoesView.update(this._listaNegociacoes);
-       this._mensagem = ProxyFactory.create(new Mensagem(),['texto'], (model) => {
-           this._mensagemView.update(model);
-       });
+       
+       
        this._mensagemView = new MensagemView($("#mensagemView"));
-       this._mensagemView.update(this._mensagem);
+       this._mensagem = new Bind(new Mensagem(), this._mensagemView,['texto']);
+       
 
     }
     adiciona(event) {
