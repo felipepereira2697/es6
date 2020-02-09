@@ -15,20 +15,21 @@ class ProxyFactory {
                          //o arguments da acesso a todos os parametros da funcao quando ela é chamada.
                          console.log('--> ',this);
                          //chamando a funcao de adiciona
-                         Reflect.apply(target[prop], target,arguments);
+                         let retorno = Reflect.apply(target[prop], target,arguments);
                          //A acao pode voltar algo no return entao eu tenho que dar o return dessa acao
-                         return acao(target);
+                         acao(target);
+                         return retorno;
                      }
                 }
                 return Reflect.get(target,prop,receiver);
                 },
                 set(target, prop, value, receiver) {
-                    acao(target);
+
+                    let retorno = Reflect.set(target, prop, value, receiver);
                     if(props.includes(prop)) {
-                        target[prop] = value
-                        acao(target);
+                        acao(target);    
                     }
-                    return Reflect.set(target,prop, value, receiver);
+                    return retorno;
                 }
             });
     }
