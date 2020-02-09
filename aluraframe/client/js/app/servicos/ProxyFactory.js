@@ -4,7 +4,7 @@ class ProxyFactory {
             //Interceptar uma operacao de leitura para executar determinada acao
             get(target, prop, receiver) {
                 //Se o metodo que to interceptando é adiciona ou esvazia
-                if(props.includes(prop) && typeof(target[prop]) == typeof(Function)) {
+                if(props.includes(prop) && ProxyFactory._checkFunction(target[prop])) {
                      //Substituindo o metodo do Proxy por uma function
                      return function() {
                          //ou seja se vc tiver chamando o metodo adiciona do Proxy na verdade vc ta chamando esse metodo aqui
@@ -21,7 +21,18 @@ class ProxyFactory {
                      }
                 }
                 return Reflect.get(target,prop,receiver);
+                },
+                set(target, prop, value, receiver) {
+                    acao(target);
+                    if(props.includes(prop)) {
+                        target[prop] = value
+                        acao(target);
+                    }
+                    return Reflect.set(target,prop, value, receiver);
                 }
             });
+    }
+    static _checkFunction(func) {
+        return typeof(func) == typeof(Function);
     }
 }
