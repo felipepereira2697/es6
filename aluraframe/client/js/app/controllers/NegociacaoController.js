@@ -41,41 +41,16 @@ class NegociacaoController {
         
     }
     importaNegociacoes(event) {
-        let xhr = new XMLHttpRequest();
-
-        //Aqui se fosse um web service, colocariamos o endereco do web service, como estamos com o servico local entao só
-        //o caminho pra ele ja resolve
-        xhr.open('GET','negociacoes/semana');
-
-        //essa funcao vai ser chamada toda vez que o estado do XMLHttpRequest for alterado
-        xhr.onreadystatechange = () => {
-            //Estados possiveias de uma requisicao ajax
-            /**
-             * 0 -> Requisicao nao iniciada
-             * 1 -> Conexao com o servidor estabelecida
-             * 2 -> Requisicao recebida
-             * 3 -> processando requisicao
-             * 4 -> Requisicao concluida e resposta esta protna
-             */
-            if(xhr.readyState == 4) {
-                //buscar os dados do servidor
-                if(xhr.status == 200) {
-                    console.log('Obtendo as negociacoes do servidor');
-                    //aqui ele vai me dar oq o servidor retornou
-                    //pra cada item do responseText vamos criar um objeto do tipo Negociacao
-                    //depois de fazer o map e criar um novo array agora de negociacoes
-                    //vamos atualizar a listaNegociacoes adicionando cada um dos elementos
-                    JSON.parse(xhr.responseText).map(objeto => {
-                        return new Negociacao(new Date(objeto.data),objeto.quantidade,objeto.valor);
-                    }).forEach(negociacao => this._listaNegociacoes.adiciona(negociacao) );
-                    this._mensagem.texto = 'Negociações importadas com sucesso';
-                }else {
-                    console.log('Nao foi possivel obter as negociacoes do servidor');
-                    console.log(xhr.responseText);
-                }
+        let service = new NegociacaoService();
+        service.obterNegociacoesDaSemana((err,negociacoes) => {
+            //quando meu servidor fizer a requisicao ajax e tiver tudo pronto, ele vai chamar essa requisicao
+            if(err) {
+                this._mensagem.texto  = err;
+                return;
             }
-        }
-        xhr.send();
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = "Negociacoes importadas com sucesso";
+        });
     }
     apaga() {
         this._listaNegociacoes.esvazia();
