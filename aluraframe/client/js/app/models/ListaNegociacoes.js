@@ -17,8 +17,9 @@ class ListaNegociacoes {
     }
     esvazia() {
         this._negociacoes = [];
-        
-        
-        
+   
+    }
+    get volumeTotal() {
+        this._negociacoes.reduce((total, n) =>  total + n.volume,0.0);
     }
 }
