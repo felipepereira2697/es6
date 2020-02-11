@@ -48,3 +48,5 @@ Sobre o padrão de projeto Factory, julgue as afirmativas abaixo:
     * 3 -> processando requisicao
     * 4 -> Requisicao concluida e resposta esta protna
     
+
+JSON É UMA ANOTACAO TEXTUAL ENQUANTO O OBJETO JS VOCE PODE MANIPULAR, POR ISSO PRECISAMOS DO JSON.parse();

@@ -61,9 +61,17 @@ class NegociacaoController {
                 //buscar os dados do servidor
                 if(xhr.status == 200) {
                     console.log('Obtendo as negociacoes do servidor');
-                    
+                    //aqui ele vai me dar oq o servidor retornou
+                    //pra cada item do responseText vamos criar um objeto do tipo Negociacao
+                    //depois de fazer o map e criar um novo array agora de negociacoes
+                    //vamos atualizar a listaNegociacoes adicionando cada um dos elementos
+                    JSON.parse(xhr.responseText).map(objeto => {
+                        return new Negociacao(new Date(objeto.data),objeto.quantidade,objeto.valor);
+                    }).forEach(negociacao => this._listaNegociacoes.adiciona(negociacao) );
+                    this._mensagem.texto = 'Negociações importadas com sucesso';
                 }else {
                     console.log('Nao foi possivel obter as negociacoes do servidor');
+                    console.log(xhr.responseText);
                 }
             }
         }
