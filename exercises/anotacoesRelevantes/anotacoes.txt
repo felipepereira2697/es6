@@ -35,3 +35,16 @@ Sobre o padrão de projeto Factory, julgue as afirmativas abaixo:
 2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
 
 3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
+
+
+
+=====================================================================================
+
+ Estados possiveias de uma requisicao ajax
+ 
+    * 0 -> Requisicao nao iniciada
+    * 1 -> Conexao com o servidor estabelecida
+    * 2 -> Requisicao recebida
+    * 3 -> processando requisicao
+    * 4 -> Requisicao concluida e resposta esta protna
+    
