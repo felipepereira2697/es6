@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function doSomething(msg) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        console.log(msg);
+                        resolve();
+                    }, 1000)
+                })
+            }
+            
+            doSomething("1st call").then(() => doSomething("2nd call")).then(() => doSomething("3rd call"));
+            
+        </script>
+    </body>
+</html>
