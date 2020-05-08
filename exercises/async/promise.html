@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            let count = 0;
+            
+            let p = new Promise((resolve, reject) => {
+                try{
+                    this.count = 1;
+                    resolve(1);
+                }catch(e){
+                    reject(e);
+                }
+            })
+            p.then((res) => {
+                if(res == 1){
+                    this.doSomething(res);
+                }
+            })
+            function doSomething(res){
+                alert(res);
+            }
+        </script>
+    </body>
+</html>
