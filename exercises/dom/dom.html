@@ -29,6 +29,15 @@
                 alert('Hey '+document.querySelector('div#app input').value);
             }
         }
+        let linkElement = document.createElement('a');
+        linkElement.setAttribute('href','https://www.google.com');
+
+        let text = document.createTextNode('Access Google');
+        //Adding text as a child of linkElement
+        linkElement.appendChild(text);
+
+        let container = document.querySelector('#app');
+        container.appendChild(linkElement);
         
     </script>
 </body>
