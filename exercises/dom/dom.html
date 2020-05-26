@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" name="input" id="input" />
+        <button onclick="triggerAlert()">
+            Click
+        </button>
+    </div>
+    <script>
+        function triggerAlert(){
+            //document.getElementsByTagName('input')
+            //document.getElementsByClassName('input')
+            //let inputElement = document.getElementById('input').value
+
+            //using query selector I can navigate through DOM just like
+            let inputElement = document.querySelector('body div#app input').value
+
+            //find by property
+            let inputElementByProperty = document.querySelector('input[name=input]').value
+            alert(inputElementByProperty);
+        }
+        
+    </script>
+</body>
+</html>
