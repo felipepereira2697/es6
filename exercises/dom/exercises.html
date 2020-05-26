@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" name="input" id="input" />
+
+        <button class="" onclick="createDiv()">
+            Create div
+        </button>
+
+
+    </div>
+    <script>
+        function createDiv(){
+            console.log('called');
+            let newDiv = document.createElement('div');
+            newDiv.style.backgroundColor = '#f00';
+            newDiv.style.width = '100px';
+            newDiv.style.height = '100px';
+            document.body.appendChild(newDiv);
+
+            newDiv.onmouseover = function(e){
+                // o this aqui equivale a newDiv
+                console.log(this);
+                this.style.backgroundColor = getRandomColor();
+            }
+        }
+
+        function getRandomColor() {
+            console.log('hey')
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        
+
+    
+        
+            
+    </script>
+</body>
+</html>

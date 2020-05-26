@@ -11,8 +11,15 @@
         <button class="actionBtn" onclick="triggerAlert()">
             Click
         </button>
+
+        <button class="" onclick="createDiv()">
+            Create div
+        </button>
+
+        <div class='batatinha'></div>
     </div>
     <script>
+
         function triggerAlert(){
             //document.getElementsByTagName('input')
             //document.getElementsByClassName('input')
@@ -39,6 +46,12 @@
         let container = document.querySelector('#app');
         container.appendChild(linkElement);
         
+        //Create element
+        var bat = document.querySelector('.batatinha');
+        bat.style.width = 300;
+        bat.style.height = 300;
+        bat.style.backgroundColor = '#f00';
+            
     </script>
 </body>
 </html>
