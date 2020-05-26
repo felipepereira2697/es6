@@ -8,7 +8,7 @@
 <body>
     <div id="app">
         <input type="text" name="input" id="input" />
-        <button onclick="triggerAlert()">
+        <button class="actionBtn" onclick="triggerAlert()">
             Click
         </button>
     </div>
@@ -19,11 +19,15 @@
             //let inputElement = document.getElementById('input').value
 
             //using query selector I can navigate through DOM just like
-            let inputElement = document.querySelector('body div#app input').value
+            //let inputElement = document.querySelector('body div#app input').value
 
             //find by property
-            let inputElementByProperty = document.querySelector('input[name=input]').value
-            alert(inputElementByProperty);
+            //let inputElementByProperty = document.querySelector('input[name=input]').value
+            //alert(inputElementByProperty);
+            let btnElement  = document.querySelector('button.actionBtn')
+            btnElement.onclick = function(){
+                alert('Hey '+document.querySelector('div#app input').value);
+            }
         }
         
     </script>
