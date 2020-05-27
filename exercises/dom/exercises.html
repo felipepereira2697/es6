@@ -13,9 +13,40 @@
             Create div
         </button>
 
+        <button class="" onclick="createList()">
+            Create List
+        </button>
+
+        <input type="text" name="nome"  id="addName">
+        <button onclick="add()">Add</button>
+
+
+
 
     </div>
     <script>
+        function add() {
+            let nameElement = document.querySelector('#addName');
+            let ul = document.querySelector('ul');
+            let li = document.createElement('li');
+            li.innerHTML = nameElement.value;
+            ul.appendChild(li);
+            nameElement.value = '';
+        }
+        function createList() {
+            let players = ['Ronaldo', 'Messi', 'Cristiano Ronaldo', 'Cruyff', 'Pelé'];
+            let ul = document.createElement('ul');
+            
+            players.forEach((item) => {
+                let liItem = document.createElement('li');
+                liItem.innerHTML =  item;
+                ul.appendChild(liItem);
+            })
+
+            document.body.appendChild(ul);
+        }
+        
+
         function createDiv(){
             console.log('called');
             let newDiv = document.createElement('div');
