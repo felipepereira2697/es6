@@ -1,0 +1,8 @@
+//Axios is a library to work with async js
+axios.get('https://api.github.com/users/felipepereira2697')
+    .then(function(response){
+        console.log(response);
+    })
+    .catch(function(error){
+        console.warn(error);
+    });
