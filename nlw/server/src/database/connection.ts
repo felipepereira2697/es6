@@ -6,7 +6,9 @@ const connection = knex({
     client: 'sqlite3',
     connection : {
         filename : path.resolve(__dirname, 'database.sqlite')
-    }
-})
+    },
+    useNullAsDefault: true,
+});
 
+//Migrations --> Historico do banco de dados
 export default connection;
