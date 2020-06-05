@@ -47,7 +47,7 @@ class PointsController {
         //Vamos criar uma transaction para caso ocorra algum erro nos inserts, eles nao sejam executados ja que um depende do outro
         const trx = await knex.transaction();
         const point = {
-            image : 'image-fake',
+            image : 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
             name : name, 
             email : email,
             whatsapp : whatsapp, 
