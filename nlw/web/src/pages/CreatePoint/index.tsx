@@ -1,7 +1,7 @@
-import React, {useEffect, useState, ChangeEvent} from 'react';
+import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import './style.css';
 import logo from '../../assets/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {FiArrowLeft} from 'react-icons/fi';
 import {Map, TileLayer, Marker} from 'react-leaflet';
 import {LeafletMouseEvent} from 'leaflet';
@@ -35,10 +35,19 @@ const CreatePoint = () => {
     //carregar o mapa com a localizacao atual do user
     const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0]);
 
+    const [formData, setFormData] = useState({
+        name : '',
+        email : '',
+        whatsapp: '',
+    })
+
     const [selectedUf, setSelectedUf] = useState('0');
     const [selectedCity, setSelectedCity] = useState('0');
+    //Armazenar o id dos items q ele selecionou
+    const [selectedItems, setSelectedItems] = useState<number[]>([]);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0,0]);
     
+    const history = useHistory();
     // useEffect recebe dois parametros: qual funcao quero executar, quando
     //quando --> quando tal info mudar
 
@@ -83,7 +92,7 @@ const CreatePoint = () => {
     }
     function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
         const citySelected = event.target.value;
-        setSelectedUf(citySelected);
+        setSelectedCity(citySelected);
     }
     function handleMapClick(event: LeafletMouseEvent){
         setSelectedPosition([
@@ -92,8 +101,46 @@ const CreatePoint = () => {
         ])
     }
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-
+        //-ra nao perder referencia dos outros campos q nós usamos, vamos usar o spread operator
+        const {name, value} = event.target;
+        setFormData({...formData, [name]:value});
     }
+    function handleSelectItem(id: number) {
+        const alreadySelected = selectedItems.findIndex(item => item === id);
+        if(alreadySelected >= 0){
+            //remove it
+            const filteredItems = selectedItems.filter(item => item !== id);
+            setSelectedItems(filteredItems);
+        }else{
+
+            //setSelectedItems --> precisamos aproveitar tudo oq temos e adicionar o novo id
+            setSelectedItems([...selectedItems, id]);
+        }
+    }
+    async function handleSubmit(event: FormEvent) {
+        //pra nao enviar o usuario pra outra tela e nao dar o reload
+        event.preventDefault();
+        const {name, email, whatsapp} = formData;
+        const uf = selectedUf;
+        const city = selectedCity;
+        const [latitude, longitude] = selectedPosition;
+        const items = selectedItems;
+        const data = {
+            name,
+            email,
+            whatsapp,
+            uf,
+            city,
+            latitude, 
+            longitude,
+            items
+        };
+        await api.post('points', data)
+
+        alert('ponto de coleta cadastrado');
+        history.push('/');
+    }
+
     return (
 
         <div id="page-create-point">
@@ -104,7 +151,7 @@ const CreatePoint = () => {
                     Voltar para home
                 </Link>
             </header>
-            <form action="">
+            <form  onSubmit={handleSubmit}>
                 <h1>Cadastro do <br/> Ponto de coleta</h1>
                 <fieldset>
                     <legend>
@@ -187,8 +234,8 @@ const CreatePoint = () => {
 
                     <ul className="items-grid">
                         {items.map(item => (
-
-                            <li key={item.id}>
+                            // PAra passar parametro para uma funcao fazemos da seguinte maneira
+                            <li key={item.id} onClick={() => handleSelectItem(item.id)} className={selectedItems.includes(item.id) ? 'selected' :''}>
                                 <img src={item.image_url} alt={item.title}/>
                                 <span>{item.title}</span>
                             </li>
