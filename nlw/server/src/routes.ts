@@ -1,4 +1,7 @@
 import express from 'express';
+//upload
+import multer from 'multer';
+import multerConfig from './config/multer';
 import PointsController from './controllers/PointsController';
 import ItemsController from './controllers/ItemsController';
 //Rota: Endereco completo da requisicao
@@ -6,6 +9,8 @@ import ItemsController from './controllers/ItemsController';
 
 //Agora automaticamente, desacoplamos as rotas do arquivo principal
 const routes = express.Router();
+const upload = multer(multerConfig);
+
 const pointsController = new PointsController();
 const itemsController = new ItemsController();
 //A respeito de parametros
@@ -15,10 +20,12 @@ const itemsController = new ItemsController();
 routes.get('/items',itemsController.index);
 
 
-routes.post('/points', pointsController.create);
+
 routes.get('/points', pointsController.index);
 routes.get('/points/:id', pointsController.show);
 
+//passando mais um parametro pra informar que vamos fazer upload de um arquivo
+routes.post('/points',upload.single('image') ,pointsController.create);
 
 
 export default routes;

@@ -47,7 +47,7 @@ class PointsController {
         //Vamos criar uma transaction para caso ocorra algum erro nos inserts, eles nao sejam executados ja que um depende do outro
         const trx = await knex.transaction();
         const point = {
-            image : 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+            image : request.file.filename,
             name : name, 
             email : email,
             whatsapp : whatsapp, 
@@ -59,7 +59,10 @@ class PointsController {
         const insertedIds = await trx('points').insert(point);
         
         const point_id = insertedIds[0];
-        const pointItems = items.map((item_id : number) => {
+        const pointItems = items
+            .split(',')
+            .map((item:string )=> Number(item.trim()))
+            .map((item_id : number) => {
             return {
                 item_id,
                 point_id : point_id,
