@@ -2,7 +2,10 @@ class Negociacao {
 
     //atributos sao definidos atraves do construtor
     constructor(data, quantidade, valor){
-        this._data = data
+        //bom, como pode ser passado um objeto q tem a data, ele copia a referencia desse objeto
+        //e passa aqui pra dentro, no entanto para nao fazermos isso direto criamos uma nova data a partir
+        //da data enviada, seja ela via new Date ou via objeto
+        this._data = new Date(data.getTime());
         this._quantidade = quantidade;
         this._valor = valor;
         //Object freeze é shallow por isso ele nao entra nas propriedades de um objeto como por exemplo Date
