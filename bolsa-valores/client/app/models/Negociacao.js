@@ -15,7 +15,11 @@ class Negociacao {
     }
     //acessadores
     get data() {
-        return this._data;
+        //Aqui vamos aplicar programacao defensiva pra nao deixar que alterem a data por fora da classe
+        //esse retorno é um long gigante que calcula a data de tras ate a data atual que foi invocada
+        //assim caso vc tente chamar esse metodo para alteracao de data, o maximo que vc vai conseguir é 
+        //alterar a copia e nao o objeto interno
+        return new Date(this._data.getTime());
     }
     get quantidade() {
         return this._quantidade;
