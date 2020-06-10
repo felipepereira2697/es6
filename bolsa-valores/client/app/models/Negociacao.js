@@ -5,6 +5,8 @@ class Negociacao {
         this._data = data
         this._quantidade = quantidade;
         this._valor = valor;
+        //Object freeze é shallow por isso ele nao entra nas propriedades de um objeto como por exemplo Date
+        //por isso podemos setar o date usando negociacao.data().setDate(14)
         Object.freeze(this);
     }
 
