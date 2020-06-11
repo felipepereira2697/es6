@@ -10,10 +10,17 @@ class NegociacaoController{
     adiciona(event) {
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
         event.preventDefault();
-        console.log(this._inputData);
+
+        let negociacao = new Negociacao(this.constroiData(), this._inputQuantidade.value, this._inputValor.value);
+        console.log('Negociacao: ',negociacao);
+
+    }
+
+    
+    constroiData(data){
         //recebe um array ano, mes e dia
         //quando usa o spread significa q ele tem que ser desmembrado
-        let data = new Date(
+        return new Date(
             ...this._inputData.value
             .split('-')
             .map((item, index) => {
@@ -24,6 +31,6 @@ class NegociacaoController{
                 return item;
             })
             );
-        console.log(data);
+
     }
 }
