@@ -11,12 +11,10 @@ class NegociacaoController{
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
         event.preventDefault();
 
-        let helper = new DateHelper();
-
-        let negociacao = new Negociacao(helper.textoParaData(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
+        let negociacao = new Negociacao(DateHelper.textoParaData(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
         console.log('Negociacao: ',negociacao);
 
-        console.log('Negociacao data formatada ',helper.dataParaTexto(negociacao.data));
+        console.log('Negociacao data formatada ',DateHelper.dataParaTexto(negociacao.data));
     }
 
 }

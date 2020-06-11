@@ -1,5 +1,10 @@
 class DateHelper {
-    textoParaData(texto) {
+    
+    constructor() {
+        throw new Error('Você não pode instanciar a classe DateHelper');
+    }
+
+    static textoParaData(texto) {
          //recebe um array ano, mes e dia
         //quando usa o spread significa q ele tem que ser desmembrado
         return new Date(...texto
@@ -14,7 +19,7 @@ class DateHelper {
         );
     }
 
-    dataParaTexto(data) {
+    static dataParaTexto(data) {
         return data.getDate() + '/'+(data.getMonth()+1)+'/'+data.getFullYear();
     }
 }
