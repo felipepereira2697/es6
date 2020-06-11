@@ -12,7 +12,18 @@ class NegociacaoController{
         event.preventDefault();
         console.log(this._inputData);
         //recebe um array ano, mes e dia
-        let data = new Date(this._inputData.value.split('-'));
+        //quando usa o spread significa q ele tem que ser desmembrado
+        let data = new Date(
+            ...this._inputData.value
+            .split('-')
+            .map((item, index) => {
+                if(index === 1){
+                    //aqui é uma string mas o javascript faz o cast implicito
+                    return item - 1;
+                }
+                return item;
+            })
+            );
         console.log(data);
     }
 }
