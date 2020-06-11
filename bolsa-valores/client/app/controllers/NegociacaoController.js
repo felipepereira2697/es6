@@ -11,27 +11,12 @@ class NegociacaoController{
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
         event.preventDefault();
 
-        let negociacao = new Negociacao(this.constroiData(), this._inputQuantidade.value, this._inputValor.value);
+        let helper = new DateHelper();
+
+        let negociacao = new Negociacao(helper.textoParaData(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
         console.log('Negociacao: ',negociacao);
-        let diaMesAno = negociacao.data.getDate() + '/'+(negociacao.data.getMonth()+1)+'/'+negociacao.data.getFullYear();
-        console.log(diaMesAno);
+
+        console.log('Negociacao data formatada ',helper.dataParaTexto(negociacao.data));
     }
 
-    
-    constroiData(data){
-        //recebe um array ano, mes e dia
-        //quando usa o spread significa q ele tem que ser desmembrado
-        return new Date(
-            ...this._inputData.value
-            .split('-')
-            .map((item, index) => {
-                if(index === 1){
-                    //aqui é uma string mas o javascript faz o cast implicito
-                    return item - 1;
-                }
-                return item;
-            })
-            );
-
-    }
 }
