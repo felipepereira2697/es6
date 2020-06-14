@@ -14,7 +14,7 @@ class Negociacao {
     }
 
     get volume() {
-        return this.getQuantidade() * this.getValor();
+        return this.quantidade * this.valor;
     }
     //acessadores
     get data() {
