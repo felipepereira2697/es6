@@ -1,10 +1,11 @@
-class NegociacoesView {
+class NegociacoesView extends View {
 
-    constructor(elemento) {
-        // elemento html onde o template será renderizado
-        this._elemento = elemento;
+    constructor(elemento){
+        ///quando queeremos que o construtor da classe mae seja executada, devemos usar o super
+        super(elemento);
     }
-    _template(model) {
+    
+    template(model) {
         //o join com string em branco vai criar uma string com todo array concatenado
         return `<table class="table table-hover table-bordered">
                 <thead>
@@ -47,11 +48,5 @@ class NegociacoesView {
                 </tfoot>
             </table>
         `;
-    }
-
-    update(model){
-        //innerHTML converte a string em elementos do dom 
-        this._elemento.innerHTML  = this._template(model);
-        console.log(this._elemento);
     }
 }

@@ -1,15 +1,16 @@
-class MensagemView {
+
+class MensagemView extends View {
 
     constructor(elemento) {
-        this._elemento = elemento;
+        //quando queeremos que o construtor da classe mae seja executada, devemos usar o super
+        super(elemento);
+        
     }
-
-    _template(model) {
+    template(model) {
         //string sem conteudo é avaliada como false
         return model.texto ? `<p class="alert alert-info">${model.texto}</p>` : `<p></p>`;
     }
 
-    update(model) {
-        this._elemento.innerHTML = this._template(model);
-    }
+
+
 }
