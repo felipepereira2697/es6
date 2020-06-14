@@ -10,6 +10,10 @@ class NegociacaoController{
 
         this._negociacoesView.update(this._listaNegociacoes);
 
+        this._mensagem = new Mensagem();
+        this._mensagemView = new MensagemView(document.querySelector('#mensagemView'));
+        this._mensagemView.update(this._mensagem);
+
     }
     adiciona(event) {
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
@@ -17,6 +21,9 @@ class NegociacaoController{
 
         this._listaNegociacoes.adiciona(this._criaNegociacao());
         this._negociacoesView.update(this._listaNegociacoes);
+        this._mensagem.texto = 'Negociação adicionada';
+        this._mensagemView.update(this._mensagem);
+        
         this._limpaFormulario();
         console.log(this._listaNegociacoes.negociacoes);
     }
