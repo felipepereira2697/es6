@@ -7,10 +7,7 @@ class NegociacaoController{
         this._inputValor      = document.querySelector('#valor');
 
         this._negociacoesView = new NegociacoesView(document.querySelector('#negociacoesView'));
-        this._listaNegociacoes  = new ListaNegociacoes((model) => {
-
-            this._negociacoesView.update(model);
-        });
+        this._listaNegociacoes  = new ListaNegociacoes();
 
         //Primeira renderizacao da view
         this._negociacoesView.update(this._listaNegociacoes);

@@ -1,0 +1,10 @@
+Design Patterns utilizados 
+
+Para ajudar na atualizacao da lista de negociacoes
+
+1 - Proxy: é identico ao objeto que queremos trabalhar, normalmente vc vai achar que ele é o objeto real
+acessamos o proxy como se fosse o objeto real, mas o objeto real na verdade está dentro do Proxy
+para vc acessar o objeto verdadeiro vc tem que passar pelo Proxy, tbm teremos metodos no proxy mas estes vao delegar
+a chamada para o objeto escondido, logo entre a chamada do objeto real e o proxy, nós colocamos as armadilhas (atualizacoes)
+da view por exemplo, o bacana do proxy é justamente poder executar um codigo antes de ele chamar o codigo do modelo real, logo
+as armadilhas ficam desacopladas do modelo
