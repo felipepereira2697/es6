@@ -9,8 +9,26 @@ class NegociacaoController{
         this._negociacoesView = new NegociacoesView(document.querySelector('#negociacoesView'));
         this._listaNegociacoes  = new ListaNegociacoes();
 
-        //Primeira renderizacao da view
-        this._negociacoesView.update(this._listaNegociacoes);
+        //macete
+        let self = this;
+        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
+            get(target, prop, receiver){
+                if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop] == typeof(Function))){
+                    return function() {
+                        console.log(`Interceptando ${prop}`);
+                        console.log(`Args ${arguments[0]}`);
+                        console.log(`Args2 ${arguments[1]}`);
+                        console.log(`args length ${arguments.length}`);
+                        
+                        Reflect.apply(target[prop], target, arguments);
+                        self._negociacoesView.update(target)
+                    }
+                }
+                return Reflect.get(target, prop, receiver);
+
+            }
+        })
+        
 
         this._mensagem = new Mensagem();
         this._mensagemView = new MensagemView(document.querySelector('#mensagemView'));
