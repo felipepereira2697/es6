@@ -8,3 +8,8 @@ para vc acessar o objeto verdadeiro vc tem que passar pelo Proxy, tbm teremos me
 a chamada para o objeto escondido, logo entre a chamada do objeto real e o proxy, nós colocamos as armadilhas (atualizacoes)
 da view por exemplo, o bacana do proxy é justamente poder executar um codigo antes de ele chamar o codigo do modelo real, logo
 as armadilhas ficam desacopladas do modelo
+
+
+Implementamos o proxy na classe NegociacoesController de forma que ao criar uma lista de negociacoes quando executarmos o metodos
+de esvazia ou adiciona nessa lista de negociacoes, vamos atualizar nossa view usando o metodo de update
+
