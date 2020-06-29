@@ -9,30 +9,20 @@ class NegociacaoController{
         this._negociacoesView = new NegociacoesView(document.querySelector('#negociacoesView'));
         this._listaNegociacoes  = new ListaNegociacoes();
 
-        //macete
-        let self = this;
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-            get(target, prop, receiver){
-                if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop] == typeof(Function))){
-                    return function() {
-                        console.log(`Interceptando ${prop}`);
-                        console.log(`Args ${arguments[0]}`);
-                        console.log(`Args2 ${arguments[1]}`);
-                        console.log(`args length ${arguments.length}`);
-                        
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negociacoesView.update(target)
-                    }
-                }
-                return Reflect.get(target, prop, receiver);
-
-            }
-        })
+        this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => {
+            this._negociacoesView.update(model);
+        });
         
 
-        this._mensagem = new Mensagem();
+        this._mensagem = ProxyFactory.create(new Mensagem(),['texto'], (model) => {
+            this._mensagemView.update(model); 
+        });
+
+        //Como o proxy só é chamado quando uma propriedade é modificada, ainda
         this._mensagemView = new MensagemView(document.querySelector('#mensagemView'));
         this._mensagemView.update(this._mensagem);
+        
+        
 
     }
     adiciona(event) {
