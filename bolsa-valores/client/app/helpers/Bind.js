@@ -1,6 +1,8 @@
 class Bind {
 
-    constructor(model, view, props) {
+    //qualquer coisa que vier depois do segundo parametro seja ele 1 ou 1000 vai virar um elemento 
+    //dentro do array chamado props
+    constructor(model, view, ...props) {
         let proxy = ProxyFactory.create(model, props, (model) => {
             view.update(model);
         });

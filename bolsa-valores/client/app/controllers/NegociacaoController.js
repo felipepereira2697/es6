@@ -12,9 +12,10 @@ class NegociacaoController{
         //Aqui deixamos explicito que queremos fazer uma associacao entre os dados e a view
         //e essa associacao ocorrerá quando iniciarmos a primeira vez e toda vez que uma das propriedades
         //da  view seja alterada, podendo ser metodo ou propriedade quando acessadas
-        this._listaNegociacoes  = new Bind(new ListaNegociacoes(), this._negociacoesView, ['adiciona', 'esvazia']);
+        this._listaNegociacoes  = new Bind(new ListaNegociacoes(), this._negociacoesView, 'adiciona', 'esvazia');
 
-        this._mensagem = new Bind(new Mensagem(), this._mensagemView, ['texto']);
+        //conseguimos passar 'texto' ao inves de ['texto'] gracas ao REST OPERATOR
+        this._mensagem = new Bind(new Mensagem(), this._mensagemView, 'texto');
 
 
         
