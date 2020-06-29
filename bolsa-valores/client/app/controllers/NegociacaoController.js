@@ -7,20 +7,17 @@ class NegociacaoController{
         this._inputValor      = document.querySelector('#valor');
 
         this._negociacoesView = new NegociacoesView(document.querySelector('#negociacoesView'));
-        this._listaNegociacoes  = new ListaNegociacoes();
-
-        this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => {
-            this._negociacoesView.update(model);
-        });
-        
-
-        this._mensagem = ProxyFactory.create(new Mensagem(),['texto'], (model) => {
-            this._mensagemView.update(model); 
-        });
-
-        //Como o proxy só é chamado quando uma propriedade é modificada, ainda
         this._mensagemView = new MensagemView(document.querySelector('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
+
+        //Aqui deixamos explicito que queremos fazer uma associacao entre os dados e a view
+        //e essa associacao ocorrerá quando iniciarmos a primeira vez e toda vez que uma das propriedades
+        //da  view seja alterada, podendo ser metodo ou propriedade quando acessadas
+        this._listaNegociacoes  = new Bind(new ListaNegociacoes(), this._negociacoesView, ['adiciona', 'esvazia']);
+
+        this._mensagem = new Bind(new Mensagem(), this._mensagemView, ['texto']);
+
+
+        
         
         
 
