@@ -18,10 +18,6 @@ class NegociacaoController{
         this._mensagem = new Bind(new Mensagem(), this._mensagemView, 'texto');
 
 
-        
-        
-        
-
     }
     adiciona(event) {
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
@@ -57,16 +53,50 @@ class NegociacaoController{
 
     importaNegociacoes() {
         let service = new NegociacaoService();
-        service.obterNegociacoesDaSemana((err, negociacoesDaSemana) => {
-            if(err) {
-                this._mensagem.texto = err;
-                return;
-            }
 
-            negociacoesDaSemana.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações importadas com sucesso';
+        let promise = service.obterNegociacoesDaSemana();
+        promise
+        .then((negociacoes) => {
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+        })
+        .catch(erro => {
+            this._mensagem.texto = erro;
+        })
 
-        });
+        // service.obterNegociacoesDaSemana((err, negociacoesDaSemana) => {
+        //     if(err) {
+        //         this._mensagem.texto = err;
+        //         return;
+        //     }
+
+        //     negociacoesDaSemana.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        //     this._mensagem.texto = 'Negociações importadas com sucesso';
+
+        // });
+
+        // service.obterNegociacoesDaSemanaAnterior((err, negociacoesDaSemana) => {
+        //     if(err) {
+        //         this._mensagem.texto = err;
+        //         return;
+        //     }
+
+        //     negociacoesDaSemana.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        //     this._mensagem.texto = 'Negociações importadas com sucesso';
+
+        // });
+
+
+        // service.obterNegociacoesDaSemanaRetrasada((err, negociacoesDaSemana) => {
+        //     if(err) {
+        //         this._mensagem.texto = err;
+        //         return;
+        //     }
+
+        //     negociacoesDaSemana.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        //     this._mensagem.texto = 'Negociações importadas com sucesso';
+
+        // });
     }
 
 
