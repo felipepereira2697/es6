@@ -7,19 +7,25 @@
 </head>
 <body>
     <script>
-        let openRequest = window.indexedDB.open('bolsavalores', 1);
+        let connection;
+        let openRequest = window.indexedDB.open('bolsavalores', 2);
 
         openRequest.onupgradeneeded = (e) => {
             console.log('cria ou alteera banco ja existente');
+            let minhaConnection = e.target.result;
+            minhaConnection.createObjectStore('negociacoes');
         };
 
         openRequest.onsuccess = (e) => {
             console.log('Coneexao obtida com sucesso');
+            connection = e.target.result;
         };
 
         openRequest.onerror = (e) => {
             console.log(e.target.error);
         };
+
+
     </script>
 </body>
 </html>
