@@ -39,6 +39,7 @@
             let store = transaction.objectStore('negociacoes');
 
             let negociacao = new Negociacao(new Date(), 1, 140);
+            let negociacao2 = new Negociacao(new Date(), 2, 280);
 
             //vamos pedir pra store gravar
 
@@ -50,6 +51,39 @@
 
             request.onerror = e => {
                 console.log('deu ruim na negociacao');
+            }
+        }
+
+        function listaTodos() {
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+
+            let store = transaction.objectStore('negociacoes');
+
+            let negociacoes = [];
+            //passeando pela object store com o ponteiro
+            let iterator = store.openCursor();
+
+            iterator.onsuccess = e => {
+
+                //PONTEIRO para uma negociacao no banco
+                let atual = e.target.result;
+                if(atual) {
+                    //essa é a negociacao real
+                    let dado = atual.value;
+
+                    //como queremeos uma instancia de vdd de Negociacao precisamos criar uma a partir
+                    //dos dados que recebemos do ponteiro, aqui usamos o _ pq lembre-se nao temos nenhum metodo aqui.
+                    //logo nao conseguimos usar get ou set
+                    negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+
+                    //e ai continua iterando atee nao ter mais
+                    atual.continue();
+                }else{
+                    console.log(negociacoes);
+                }
+            }
+            iterator.onerror = e => {
+                console.log(e.target.error.name);
             }
         }
     </script>
