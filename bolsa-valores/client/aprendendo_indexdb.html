@@ -12,6 +12,8 @@
         var connection;
         var openRequest = window.indexedDB.open('bolsavalores', 3);
 
+
+        //O evento onupgradeneeded é sempre chamado quando o banco é criado pela primeira vez.
         openRequest.onupgradeneeded = (e) => {
             console.log('cria ou alteera banco ja existente');
             let minhaConnection = e.target.result;
