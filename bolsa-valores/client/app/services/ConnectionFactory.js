@@ -11,14 +11,28 @@ class ConnectionFactory {
         return new Promise((resolve, reject) => {
             let openRequest = window.indexedDB.open(dbName, version);
             openRequest.onupgradeneeded = e => {
-
+                ConnectionFactory._createStores(e.target.result);
             };
             openRequest.onsuccess = e => {
-
+                //aqui deu tudo certo
+                resolve(e.target.result);
             }
             openRequest.onerror = e => {
-
+                console.log(e.target.error);
+                reject(e.target.error.name);
             }
         })
+    }
+
+    static _createStores(connection) {
+        stores.forEach((store) => {
+            //se ja existe uma object store, deleta para criar uma nova
+            if(connection.objectStoreNames.contains(store)) {
+                connection.deleteObjectStore(store);
+            }
+
+            //cria a store
+            connection.createObjectStore(store, {autoIncrement : true});
+        });
     }
 }
