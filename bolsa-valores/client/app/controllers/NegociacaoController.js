@@ -23,12 +23,21 @@ class NegociacaoController{
         //se vc nao cancelar o comportamento padrao do form ele vai recarregar, e ai perder infos
         event.preventDefault();
 
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
-        
-        this._mensagem.texto = 'Negociação adicionada';
-        this._mensagemView.update(this._mensagem);
-        
-        this._limpaFormulario();
+        ConnectionFactory.getConnection()
+        .then(connection => {
+            let negociacao = this._criaNegociacao();
+            new NegociacaoDAO(connection).adiciona(negociacao)
+            .then(() => {
+                this._listaNegociacoes.adiciona(negociacao);
+                this._mensagem.texto = 'Negociação adicionada';
+                this._mensagemView.update(this._mensagem);
+                
+                this._limpaFormulario();
+            })
+        })
+        .catch(erro => {
+            this._mensagem.texto = erro; 
+        });
         console.log(this._listaNegociacoes.negociacoes);
     }
 
@@ -41,7 +50,7 @@ class NegociacaoController{
     }
     //metodos privado
     _criaNegociacao() {
-        return new Negociacao(DateHelper.textoParaData(this._inputData.value), this._inputQuantidade.value, this._inputValor.value);
+        return new Negociacao(DateHelper.textoParaData(this._inputData.value), parseInt(this._inputQuantidade.value), parseFloat(this._inputValor.value));
     }
     _limpaFormulario() {
         this._inputData.value = '';
