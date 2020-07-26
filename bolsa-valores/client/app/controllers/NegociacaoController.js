@@ -17,6 +17,16 @@ class NegociacaoController{
         //conseguimos passar 'texto' ao inves de ['texto'] gracas ao REST OPERATOR
         this._mensagem = new Bind(new Mensagem(), this._mensagemView, 'texto');
 
+        //vamos listar tudo assim q a aplicacao comecar
+        ConnectionFactory.getConnection()
+        .then(connection => {
+            new NegociacaoDAO(connection).listaTodos()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => {
+                    this._listaNegociacoes.adiciona(negociacao);
+                })
+            });
+        });
 
     }
     adiciona(event) {
