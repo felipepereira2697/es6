@@ -19,14 +19,14 @@ class NegociacaoController{
 
         //vamos listar tudo assim q a aplicacao comecar
         ConnectionFactory.getConnection()
-        .then(connection => {
-            new NegociacaoDAO(connection).listaTodos()
-            .then(negociacoes => {
-                negociacoes.forEach(negociacao => {
-                    this._listaNegociacoes.adiciona(negociacao);
-                })
-            });
-        });
+        //retorno implicito
+        .then(connection => new NegociacaoDAO(connection))
+        .then(dao => dao.listaTodos())
+        .then(negociacoes => {
+            negociacoes.forEach(negociacao => {
+                this._listaNegociacoes.adiciona(negociacao);
+            })
+        })
 
     }
     adiciona(event) {
