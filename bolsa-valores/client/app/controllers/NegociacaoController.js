@@ -27,6 +27,10 @@ class NegociacaoController{
                 this._listaNegociacoes.adiciona(negociacao);
             })
         })
+        .catch(erro => {
+            console.log(erro);
+            this._mensagem.texto = erro;
+        });
 
     }
     adiciona(event) {
@@ -52,11 +56,15 @@ class NegociacaoController{
     }
 
     apaga() {
+        ConnectionFactory.getConnection()
+        .then(connection => new NegociacaoDAO(connection))
+        .then(dao => dao.apagaTodos())
+        .then(mensagem => {
+            this._mensagem.texto = mensagem;
+            this._listaNegociacoes.esvazia();
+        })
         
-        this._listaNegociacoes.esvazia();
         
-        this._mensagem.texto = 'Negociacoes apagadas com sucesso';
-        this._mensagemView.update(this._mensagem);
     }
     //metodos privado
     _criaNegociacao() {
